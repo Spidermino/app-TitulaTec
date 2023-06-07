@@ -12,13 +12,10 @@ const Stack = createStackNavigator();
 export default function Route() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login">
+            <Stack.Navigator initialRouteName="Login" >
                 <Stack.Screen
                     name="Login"
                     component={LoginScreen}
-                    options={({ route }) => ({
-                        tabBarVisible: route.state && route.state.index === 0,
-                    })}
                 />
                 <Stack.Screen name="Menu" component={MenuScreen} />
             </Stack.Navigator>
