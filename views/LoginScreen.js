@@ -50,12 +50,12 @@ export default function LoginScreen() {
       <Input
         containerStyle={{}}
         disabledInputStyle={{ background: "#ddd" }}
-        inputContainerStyle={{}}
+        inputContainerStyle={{fontFamily: 'Montserrat'}}
         errorStyle={{}}
         errorProps={{}}
         inputStyle={{}}
         label="Correo:"
-        labelStyle={{}}
+        labelStyle={{fontFamily: 'Montserrat'}}
         labelProps={{}}
         leftIcon={<Ionicons name="mail-outline" size={20} />}
         leftIconContainerStyle={{}}
@@ -70,7 +70,7 @@ export default function LoginScreen() {
         errorProps={{}}
         inputStyle={{}}
         label="Contraseña:"
-        labelStyle={{}}
+        labelStyle={{fontFamily: 'Montserrat'}}
         labelProps={{}}
         leftIcon={<Ionicons name="lock-closed-outline" size={20} />}
         rightIcon={<Ionicons name="eye-off-outline" size={20} />}
@@ -80,7 +80,7 @@ export default function LoginScreen() {
         secureTextEntry={true}
       />
       <Button
-        buttonStyle={{ backgroundColor: '#04764B', width: 180 }}
+        buttonStyle={{ backgroundColor: '#04764B', width: 180 ,paddingVertical: 15 }}
         containerStyle={{ margin: 5 }}
         disabledStyle={{
           borderWidth: 2,
@@ -98,15 +98,14 @@ export default function LoginScreen() {
         }
         loadingProps={{ animating: true }}
         loadingStyle={{}}
-        onPress={() => navigation.navigate('Menu')}
+        onPress={() => Alert.alert('','Sesión iniciada con éxito',
+        [{text: 'Aceptar', onPress: () => navigation.navigate("Menu")},],{cancelable: false},)}
         title="Iniciar sesión"
         titleProps={{}}
         titleStyle={{ marginHorizontal: 5 }}
       />
     </View>
-
   );
-
 }
 const styles = StyleSheet.create({
   input: {
@@ -118,12 +117,3 @@ const styles = StyleSheet.create({
   },
 });
 
-
-function LogoTitle() {
-  return (
-    <Image
-      style={{ width: '90%', height: '10%'}}
-      source={require('../assets/logo.png')}
-    />
-  );
-}

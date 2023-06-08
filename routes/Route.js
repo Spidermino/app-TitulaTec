@@ -7,17 +7,20 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import LoginScreen from "../views/LoginScreen";
 import MenuScreen from "../views/MenuScreen";
 import SolicitudesScreen from "../views/SolicitudesScreen";
+import ConfiguracionScreen from "../views/ConfiguracionScreen";
 
 const Stack = createStackNavigator();
 
 export default function Route() {
-    const Tab = createBottomTabNavigator();
-    return (
-        <NavigationContainer>
-           <Stack.Navigator initialRouteName="Login" >
+  const Tab = createBottomTabNavigator();
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login" >
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Menu" component={MenuScreen} />
+        <Stack.Screen name="Solicitudes" component={SolicitudesScreen} />
+        <Stack.Screen name="Configuracion" component={ConfiguracionScreen} />
       </Stack.Navigator>
-        </NavigationContainer>
-    );
+    </NavigationContainer>
+  );
 }
