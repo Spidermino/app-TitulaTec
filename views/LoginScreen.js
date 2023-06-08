@@ -6,26 +6,47 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { Button, Input } from "@rneui/base";
 import MenuScreen from "./MenuScreen";
 import SolicitudesScreen from "./SolicitudesScreen";
+import { useFonts } from 'expo-font';
 
 export default function LoginScreen() {
+ 
   const navigation = useNavigation();
   
-  navigation.setOptions({ title: "" })
+  navigation.setOptions({ header: props => null  })
+  const [loaded] = useFonts({
+    Montserrat: require('../assets/fonts/Outfit-Bold.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   return (
 
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Image
         source={require('../assets/logo.png')}
         style={{ width: '90%', height: '10%', position: 'absolute',
-        top: 0,
-        left: 0}}
+        top: 50,
+        left: 10}}
       />
       {/* <Stack.Navigator initialRouteName="Login" >
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Menu" component={MenuScreen} />
       </Stack.Navigator> */}
-      <Text leftIcon={<Ionicons name="person-outline" size={40} />}>Inicio de sesión</Text>
-      <Text>Ingrese sus datos:</Text>
+      <Image
+        source={require('../assets/customer_120px.png')}
+        style={{ width: '10%', height: '5%',
+        top: -80,
+        left: -150}}
+      /><Text style={{
+        fontFamily: 'Montserrat',
+        fontSize: 20,
+      top: -110,
+      left: -50}}>Inicio de sesión</Text>
+      <Text style={{ 
+        fontFamily: 'Montserrat',
+      top: -50,
+      left: -130}}>Ingrese sus datos:</Text>
       <Input
         containerStyle={{}}
         disabledInputStyle={{ background: "#ddd" }}
@@ -98,4 +119,11 @@ const styles = StyleSheet.create({
 });
 
 
-
+function LogoTitle() {
+  return (
+    <Image
+      style={{ width: '90%', height: '10%'}}
+      source={require('../assets/logo.png')}
+    />
+  );
+}
