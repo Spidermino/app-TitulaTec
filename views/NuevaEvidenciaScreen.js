@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-export default function NuevaEvidenciaScreen({ navigation }) {
+export default function NuevaEvidenciaScreen() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <ListItem.Content style={{flexDirection: 'row'}}>
