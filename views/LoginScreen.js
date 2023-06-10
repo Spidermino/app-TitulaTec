@@ -29,10 +29,7 @@ export default function LoginScreen() {
         top: 50,
         left: 10}}
       />
-      {/* <Stack.Navigator initialRouteName="Login" >
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Menu" component={MenuScreen} />
-      </Stack.Navigator> */}
+    
       <Image
         source={require('../assets/customer_120px.png')}
         style={{ width: '10%', height: '5%',
@@ -99,7 +96,7 @@ export default function LoginScreen() {
         loadingProps={{ animating: true }}
         loadingStyle={{}}
         onPress={() => Alert.alert('','Sesión iniciada con éxito',
-        [{text: 'Aceptar', onPress: () => navigation.navigate("Menu")},],{cancelable: false},)}
+        [{text: 'Aceptar', onPress: () => navigation.navigate("Menu")},])}
         title="Iniciar sesión"
         titleProps={{}}
         titleStyle={{ marginHorizontal: 5 }}

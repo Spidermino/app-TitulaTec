@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity} from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AppBar, IconButton, FAB } from "@react-native-material/core";
 import { Ionicons } from '@expo/vector-icons';
@@ -8,42 +8,52 @@ import { useNavigation } from '@react-navigation/native';
 
 import SolicitudesScreen from "./SolicitudesScreen";
 
-export default function MenuScreen() {  
+export default function MenuScreen() {
   const navigation = useNavigation();
-  navigation.setOptions({ header: props => null  })
+  navigation.setOptions({ header: props => null })
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <TouchableOpacity onPress={onPress = () => {
-    navigation.navigate("Login")
-  }}> 
-      <Image
-        source={require('../assets/Back_arrow.png')}
-        style={{ width: 10, height: 10,
-        top: 50,
-        left: 10}}
-      />
+        navigation.navigate("Login")
+      }}>
+        <Image
+          source={require('../assets/Back_arrow.png')}
+          style={{
+            width: 50, height: 50,
+            top: -220,
+            left: -150
+          }}
+        />
       </TouchableOpacity>
+
       <Text style={{
         fontFamily: 'Montserrat',
         fontSize: 20,
-      top: -110,
-      left: -50}}>Menú</Text>
-      <TouchableOpacity onPress={onPress = () => {
-    navigation.navigate("Login")
-  }}> 
-      <Image
-        source={require('../assets/notification.png')}
-        style={{ width: 10, height: 10,
-        top: 50,
-        left: 10}}
-      /><Text style={{
+        top: -200,
+        left: -20
+      }}>Menú</Text>
+      <Text style={{
         fontFamily: 'Montserrat',
         fontSize: 20,
-      top: -110,
-      left: -50}}>Bienvenido: Jesús Gil</Text>
+        top: -190,
+        left: -20
+      }}>Bienvenido: Jesús Gil</Text>
+
+      <TouchableOpacity onPress={onPress = () => {
+        navigation.navigate("NotificacionesScreen")
+      }}>
+        <Image
+          source={require('../assets/notification.png')}
+          style={{
+            width: 50, height: 50,
+            top: -330,
+            left: 150
+          }}
+        />
       </TouchableOpacity>
+      <View style={{ flexDirection: 'row', top:-100}}>
       <Button
-        buttonStyle={{ backgroundColor: '#04764B', width: 180 ,paddingVertical: 15 }}
+        buttonStyle={{ backgroundColor: '#7C1C73', width: 180, paddingVertical: 30, top: 0 }}
         containerStyle={{ margin: 5 }}
         disabledStyle={{
           borderWidth: 2,
@@ -52,22 +62,22 @@ export default function MenuScreen() {
         disabledTitleStyle={{ color: "#00F" }}
         linearGradientProps={null}
         iconContainerStyle={{ background: "#000" }}
-        iconRight
+        iconPosition="bottom"
         icon={
           <Image
             source={require('../assets/petition.png')}
-            style={{ width: '20%', height: '200%' }}
+            style={{ width: 80, height: 80 }}
           />
         }
         loadingProps={{ animating: true }}
         loadingStyle={{}}
-        onPress={() => navigation.navigate("Solicitudes")}
+        onPress={() => navigation.navigate("NuevaSolicitud")}
         title="Solicitudes"
         titleProps={{}}
-        titleStyle={{ marginHorizontal: 5 }}
+        titleStyle={{ marginHorizontal: 10}}
       />
       <Button
-        buttonStyle={{ backgroundColor: '#04764B', width: 180 ,paddingVertical: 15 }}
+        buttonStyle={{ backgroundColor: '#04764B', width: 180, paddingVertical: 30 }}
         containerStyle={{ margin: 5 }}
         disabledStyle={{
           borderWidth: 2,
@@ -76,11 +86,11 @@ export default function MenuScreen() {
         disabledTitleStyle={{ color: "#00F" }}
         linearGradientProps={null}
         iconContainerStyle={{ background: "#000" }}
-        iconRight
+        iconPosition="bottom"
         icon={
           <Image
             source={require('../assets/settings.png')}
-            style={{ width: '20%', height: '200%' }}
+            style={{ width: 80, height: 80 }}
           />
         }
         loadingProps={{ animating: true }}
@@ -90,6 +100,7 @@ export default function MenuScreen() {
         titleProps={{}}
         titleStyle={{ marginHorizontal: 5 }}
       />
+      </View>
     </View>
   );
 }

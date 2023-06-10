@@ -1,6 +1,9 @@
-import React from "react";
+import React , { useState } from "react";
 import { View, Text } from "react-native";
-import { FAB } from "@rneui/base";
+import { FAB , Input} from "@rneui/base";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import DatePicker from "react-native-date-picker";
+import Dropdown from "react-native-material-dropdown";
 
 export default function NuevaSolicitudScreen() {
   return (
@@ -19,13 +22,13 @@ export default function NuevaSolicitudScreen() {
         leftIconContainerStyle={{}}
         rightIconContainerStyle={{}}
         placeholder="dd/mm/aaaa"
-        Text={fechaFormato}
+        Text="{fechaFormato}"
       />
-      <DatePicker
+      {/* <DatePicker
       modal
-      open={open}
+      
       mode="date"
-      date={date}
+      date={}
       onConfirm={date => {
         setOpen(false);
         formatFecha(date);
@@ -33,13 +36,10 @@ export default function NuevaSolicitudScreen() {
       onCancel={() => {
         setOpen(false);
       }}
-    />
+    /> */}
     <Dropdown
-          style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
+          
+       
           data={data}
           search
           maxHeight={300}
@@ -56,7 +56,7 @@ export default function NuevaSolicitudScreen() {
           }}
           renderLeftIcon={() => (
             <AntDesign
-              style={styles.icon}
+              style={{}}
               color={isFocus ? 'blue' : 'black'}
               name="Safety"
               size={20}
@@ -165,14 +165,14 @@ export default function NuevaSolicitudScreen() {
     </View>
   );
 }
-const [date, setDate] = useState(new Date());
- const [fechaFormato, setFechaFormato] = useState('');
+// // const [date, setDate] = useState(new Date());
+// //  const [fechaFormato, setFechaFormato] = useState('');
 
 
- const formatFecha = fecha => {
-    setDate(fecha);
-    const dia = fecha.getDate();
-    const mes = fecha.getMonth() + 1;
-    const anio = fecha.getFullYear();
-    setFechaFormato(`${dia}/${mes}/${anio}`);
-  };
+// //  const formatFecha = fecha => {
+// //     setDate(fecha);
+// //     const dia = fecha.getDate();
+// //     const mes = fecha.getMonth() + 1;
+// //     const anio = fecha.getFullYear();
+// //     setFechaFormato(`${dia}/${mes}/${anio}`);
+//   };
