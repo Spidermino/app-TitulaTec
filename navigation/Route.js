@@ -8,7 +8,7 @@ import LoginScreen from "../screens/LoginScreen";
 import MenuScreen from "../screens/MenuScreen";
 import SolicitudesScreen from "../screens/SolicitudesScreen";
 import ConfiguracionScreen from "../screens/ConfiguracionScreen";
-import NuevaSolicitudScreen from "../screens/NuevaSolicitudScreen";
+
 
 const Stack = createStackNavigator();
 
@@ -21,7 +21,7 @@ export default function Route() {
         <Stack.Screen name="Menu" component={MenuScreen} />
         <Stack.Screen name="Solicitudes" component={SolicitudesScreen} />
         <Stack.Screen name="Configuracion" component={ConfiguracionScreen} />
-        <Stack.Screen name="NuevaSolicitud" component={NuevaSolicitudScreen} />
+       
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -71,7 +71,7 @@ export default function MenuScreen() {
         }
         loadingProps={{ animating: true }}
         loadingStyle={{}}
-        onPress={() => navigation.navigate("NuevaSolicitud")}
+        onPress={() => navigation.navigate("Solicitudes")}
         title="Solicitudes"
         titleProps={{}}
         titleStyle={{ marginHorizontal: 10}}
