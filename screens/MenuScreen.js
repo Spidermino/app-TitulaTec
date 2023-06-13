@@ -1,16 +1,9 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AppBar, IconButton, FAB } from "@react-native-material/core";
-import { Ionicons } from '@expo/vector-icons';
 import { Button } from "@rneui/base";
-import { useNavigation } from '@react-navigation/native';
 
-import SolicitudesScreen from "./SolicitudesScreen";
 
-export default function MenuScreen() {
-  const navigation = useNavigation();
-  navigation.setOptions({ header: props => null })
+export default function MenuScreen({navigation}) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <TouchableOpacity onPress={onPress = () => {
@@ -20,7 +13,7 @@ export default function MenuScreen() {
           source={require('../assets/Back_arrow.png')}
           style={{
             width: 50, height: 50,
-            top: -220,
+            top: -200,
             left: -150
           }}
         />
@@ -40,13 +33,13 @@ export default function MenuScreen() {
       }}>Bienvenido: Jesús Gil</Text>
 
       <TouchableOpacity onPress={onPress = () => {
-        navigation.navigate("NotificacionesScreen")
+        navigation.navigate("Notificaciones")
       }}>
         <Image
           source={require('../assets/notification.png')}
           style={{
             width: 50, height: 50,
-            top: -330,
+            top: -310,
             left: 150
           }}
         />
@@ -71,7 +64,7 @@ export default function MenuScreen() {
         }
         loadingProps={{ animating: true }}
         loadingStyle={{}}
-        onPress={() => navigation.navigate("Solicitudes")}
+        onPress={() => navigation.navigate("SolicitudesTab")}
         title="Solicitudes"
         titleProps={{}}
         titleStyle={{ marginHorizontal: 10}}
@@ -95,7 +88,7 @@ export default function MenuScreen() {
         }
         loadingProps={{ animating: true }}
         loadingStyle={{}}
-        onPress={() => navigation.navigate("Configuracion")}
+        onPress={() => navigation.navigate("ConfiguracionTab")}
         title="Configuracion"
         titleProps={{}}
         titleStyle={{ marginHorizontal: 5 }}

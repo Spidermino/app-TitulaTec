@@ -1,19 +1,12 @@
 import React from "react";
 import { View, Text, Alert, TextInput, StyleSheet, Image } from "react-native";
-import { useNavigation } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Button, Input } from "@rneui/base";
-import MenuScreen from "./MenuScreen";
-import SolicitudesScreen from "./SolicitudesScreen";
 import { useFonts } from 'expo-font';
 
-export default function LoginScreen() {
+export default function LoginScreen({navigation}) {
  
-  const navigation = useNavigation();
-  
-  navigation.setOptions({ header: props => null  })
-  const [loaded] = useFonts({
+    const [loaded] = useFonts({
     Montserrat: require('../assets/fonts/Outfit-Bold.ttf'),
   });
 
@@ -96,7 +89,7 @@ export default function LoginScreen() {
         loadingProps={{ animating: true }}
         loadingStyle={{}}
         onPress={() => Alert.alert('','Sesión iniciada con éxito',
-        [{text: 'Aceptar', onPress: () => navigation.navigate("Menu")},])}
+        [{text: 'Aceptar', onPress: () => navigation.navigate("MenuTab")},])}
         title="Iniciar sesión"
         titleProps={{}}
         titleStyle={{ marginHorizontal: 5 }}
