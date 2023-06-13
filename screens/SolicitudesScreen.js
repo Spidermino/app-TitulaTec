@@ -3,24 +3,26 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity} from "react-native"
 import { ListItem } from 'react-native-elements';
 
 export default function SolicitudesScreen() {
-  const [proyecto, setProyecto] = useState();
+  const [solicitud, setSolicitud] = useState();
+
   const filter = {
     where: {
       idProyecto: '2',
     },
   };
-  const getProyectoData = async () => {
+  
+   const getSolicitudData = async () => {
     try {
       //   const headers = { "Content-Type": "application/json" };
-      let response = await fetch("http://192.168.0.176:3000/proyectos?filter=" + JSON.stringify(filter));
+      let response = await fetch("http://192.168.0.176:3000/solicitudes");
       let data = await response.json();
-      setProyecto(data);
+      setSolicitdu(data);
     } catch (error) {
       console.error(error);
     }
   };
   useState(() => {
-    getProyectoData();
+    getSolicitudData();
   }, []);
 
   const renderItem = ({ item }) => {
@@ -33,8 +35,16 @@ export default function SolicitudesScreen() {
         }
       >
         <View style={styles.item}>
+          <View style={{flexDirection: 'row'}}>
           <Text style={styles.title}>{item.nombre}</Text>
-          <Text>No control: {item.noControl}</Text>
+          //Poner icono de calendario en ves de fechaRegistro
+          <Text>Fecha Registro: {item.fechaRegistro}</Text>
+          </View>
+          <View style={{flexDirection:'row'}}>
+          <Text>No Control:{item.nombre}</Text>
+          //Poner badge para estatus y algun if
+          <Text>Estatus: {item.noControl}</Text>
+          </View>
         </View>
       </TouchableOpacity>
     );
@@ -42,9 +52,9 @@ export default function SolicitudesScreen() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <FlatList
-        data={proyecto}
+        data={solicitud}
         renderItem={renderItem}
-        keyExtractor={(item) => item.idProyecto}
+        keyExtractor={(item) => item.idSolicitud}
       />
     </View>
   );
