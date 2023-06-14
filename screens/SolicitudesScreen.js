@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { ListItem } from 'react-native-elements';
-import { FAB } from "@rneui/base";
+import { FAB , Badge} from "@rneui/base";
 
 export default function SolicitudesScreen({navigation}) {
   const [solicitud, setSolicitud] = useState();
@@ -39,7 +39,38 @@ export default function SolicitudesScreen({navigation}) {
         <View style={styles.item}>
           <Text style={styles.title}>{item.nombre}</Text> 
           <View style={{flexDirection:'row'}}>
-          <Text>Estatus: {item.estatus}      </Text>
+          <Text>Estatus:</Text>
+          if (item.estatus === 'E') {
+                <Badge
+                  badgeStyle={{ backgroundColor: "#FBF2CB" }}
+                  containerStyle={{}}
+                  status="primary"
+                  textProps={{}}
+                  textStyle={{ color: "#C8811A" }}
+                  value="En espera"
+                  options={{}}
+                />
+          }else if(item.estatus === 'R'){
+                <Badge
+                  badgeStyle={{ backgroundColor: "#FDE9E9" }}
+                  containerStyle={{}}
+                  status="primary"
+                  textProps={{}}
+                  textStyle={{ color: "#CD3636" }}
+                  value="Rechazada"
+                  options={{}}
+                />
+          }else if(item.estatus === 'A'){
+                <Badge
+                  badgeStyle={{ backgroundColor: "#D9F9E6" }}
+                  containerStyle={{}}
+                  status="primary"
+                  textProps={{}}
+                  textStyle={{ color: "#2F9461" }}
+                  value="Aceptada"
+                  options={{}}
+                />
+          }
           <Text>No. Control:  {item.noControl}</Text>
           </View>
           <View style={{flexDirection:'row'}}>

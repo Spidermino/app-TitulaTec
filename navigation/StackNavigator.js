@@ -25,7 +25,8 @@ const SolicitudesStackNavigator = () => {
     <Stack.Navigator screenOptions={{headerShown:false
   }}>
       <Stack.Screen name="Solicitudes" component={SolicitudesScreen} />
-      <Stack.Screen name="NuevaSolicitud" component={NuevaSolicitudScreen} />
+      <Stack.Screen name="NuevaSolicitud" component={NuevaSolicitudScreen} 
+      options={{tabBarStyle:{display: "none"}, headerShown:false}}/>
 
     </Stack.Navigator>
   );
