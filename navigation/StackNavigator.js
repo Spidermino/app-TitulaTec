@@ -6,6 +6,7 @@ import MenuScreen from "../screens/MenuScreen";
 import SolicitudesScreen from "../screens/SolicitudesScreen";
 import ConfiguracionScreen from "../screens/ConfiguracionScreen";
 import LoginScreen from "../screens/LoginScreen"
+import NuevaSolicitudScreen from "../screens/NuevaSolicitudScreen";
 
 
 const Stack = createStackNavigator();
@@ -24,6 +25,8 @@ const SolicitudesStackNavigator = () => {
     <Stack.Navigator screenOptions={{headerShown:false
   }}>
       <Stack.Screen name="Solicitudes" component={SolicitudesScreen} />
+      <Stack.Screen name="NuevaSolicitud" component={NuevaSolicitudScreen} />
+
     </Stack.Navigator>
   );
 }

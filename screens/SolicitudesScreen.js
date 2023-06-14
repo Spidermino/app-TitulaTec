@@ -1,8 +1,10 @@
 import React, {useState} from "react";
-import { View, Text, StyleSheet, FlatList, TouchableOpacity} from "react-native";
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image} from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { ListItem } from 'react-native-elements';
+import { FAB } from "@rneui/base";
 
-export default function SolicitudesScreen() {
+export default function SolicitudesScreen({navigation}) {
   const [solicitud, setSolicitud] = useState();
 
   const filter = {
@@ -16,7 +18,7 @@ export default function SolicitudesScreen() {
       //   const headers = { "Content-Type": "application/json" };
       let response = await fetch("http://192.168.0.176:3000/solicitudes");
       let data = await response.json();
-      setSolicitdu(data);
+      setSolicitud(data);
     } catch (error) {
       console.error(error);
     }
@@ -35,28 +37,61 @@ export default function SolicitudesScreen() {
         }
       >
         <View style={styles.item}>
-          <View style={{flexDirection: 'row'}}>
-          <Text style={styles.title}>{item.nombre}</Text>
-          //Poner icono de calendario en ves de fechaRegistro
-          <Text>Fecha Registro: {item.fechaRegistro}</Text>
+          <Text style={styles.title}>{item.nombre}</Text> 
+          <View style={{flexDirection:'row'}}>
+          <Text>Estatus: {item.estatus}      </Text>
+          <Text>No. Control:  {item.noControl}</Text>
           </View>
           <View style={{flexDirection:'row'}}>
-          <Text>No Control:{item.nombre}</Text>
-          //Poner badge para estatus y algun if
-          <Text>Estatus: {item.noControl}</Text>
+          <Text><Ionicons name="calendar-outline" size={16} />{item.fechaRegistro}      </Text>
+          <Text>Opción:  {item.opcion}</Text>
           </View>
         </View>
       </TouchableOpacity>
     );
   };
   return (
+   
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+       <View>
+      <TouchableOpacity onPress={onPress = () => {
+        navigation.navigate("Menu")
+      }}>
+        
+        <Image
+          source={require('../assets/Back_arrow.png')}
+          style={{
+            width: 50, height: 50,
+            marginBottom: 10, top: 40, left:-130
+          }}
+        />
+      </TouchableOpacity>
+      <Text style={{
+        fontFamily: 'Montserrat',
+        fontSize: 20,
+        
+      }}>Solicitudes</Text>
+    </View>
       <FlatList
         data={solicitud}
         renderItem={renderItem}
         keyExtractor={(item) => item.idSolicitud}
       />
+
+<FAB onPress={() => {
+    navigation.navigate("NuevaSolicitud");
+  }}
+          style={{ width: "80%", margin: 20, left: 150 }}
+          placement="left"
+          color="#0080FF"
+          size="large"
+          overlayColor="#454545"
+          icon={{ name: "add", color: "#fff" }}
+        />
     </View>
+   
+        
+      
   );
 }
 const styles = StyleSheet.create({

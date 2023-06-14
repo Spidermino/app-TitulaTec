@@ -40,12 +40,12 @@ export default function LoginScreen({navigation}) {
       <Input
         containerStyle={{}}
         disabledInputStyle={{ background: "#ddd" }}
-        inputContainerStyle={{fontFamily: 'Montserrat'}}
+        inputContainerStyle={{fontFamily: 'Montserrat', width:300, left:30}}
         errorStyle={{}}
         errorProps={{}}
         inputStyle={{}}
         label="Correo:"
-        labelStyle={{fontFamily: 'Montserrat'}}
+        labelStyle={{fontFamily: 'Montserrat', left:30}}
         labelProps={{}}
         leftIcon={<Ionicons name="mail-outline" size={20} />}
         leftIconContainerStyle={{}}
@@ -55,15 +55,14 @@ export default function LoginScreen({navigation}) {
       <Input
         containerStyle={{}}
         disabledInputStyle={{ background: "#ddd" }}
-        inputContainerStyle={{}}
+        inputContainerStyle={{width:300, left:30}}
         errorStyle={{}}
         errorProps={{}}
         inputStyle={{}}
         label="Contraseña:"
-        labelStyle={{fontFamily: 'Montserrat'}}
+        labelStyle={{fontFamily: 'Montserrat', left:30}}
         labelProps={{}}
         leftIcon={<Ionicons name="lock-closed-outline" size={20} />}
-        rightIcon={<Ionicons name="eye-off-outline" size={20} />}
         leftIconContainerStyle={{}}
         rightIconContainerStyle={{}}
         placeholder="Ingresa la contraseña"
@@ -97,13 +96,5 @@ export default function LoginScreen({navigation}) {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    width: 200,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-});
+
 
