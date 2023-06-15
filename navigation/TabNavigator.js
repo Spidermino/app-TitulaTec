@@ -2,7 +2,10 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
-import { MenuStackNavigator, SolicitudesStackNavigator, ConfiguracionStackNavigator, LoginStackNavigator } from "./StackNavigator";
+import {
+  MenuStackNavigator, SolicitudesStackNavigator,
+  ConfiguracionStackNavigator, LoginStackNavigator, NuevaSolicitudStackNavigator, EditSolicitudStackNavigator
+} from "./StackNavigator";
 //{logged === true ? </BottomTabNavigator> : </Login>}
 const Tab = createBottomTabNavigator();
 
@@ -24,14 +27,18 @@ const BottomTabNavigator = () => {
       tabBarActiveTintColor: "blue",
       tabBarInactiveTintColor: "gray",
     })}>
-      <Tab.Screen name="LoginTab" component={LoginStackNavigator} 
-      options={{tabBarStyle:{display: "none"}, headerShown:false, tabBarButton: () => null}}/>
-      <Tab.Screen name="MenuTab" component={MenuStackNavigator} 
-      options={{tabBarLabel:"Menú", headerShown:false}}/>
-      <Tab.Screen name="SolicitudesTab" component={SolicitudesStackNavigator} 
-      options={{tabBarLabel:"Solicitudes", headerShown:false}}/>
+      <Tab.Screen name="LoginTab" component={LoginStackNavigator}
+        options={{ tabBarStyle: { display: "none" }, headerShown: false, tabBarButton: () => null }} />
+      <Tab.Screen name="MenuTab" component={MenuStackNavigator}
+        options={{ tabBarLabel: "Menú", headerShown: false }} />
+      <Tab.Screen name="SolicitudesTab" component={SolicitudesStackNavigator}
+        options={{ tabBarLabel: "Solicitudes", headerShown: false }} />
       <Tab.Screen name="ConfiguracionTab" component={ConfiguracionStackNavigator}
-      options={{tabBarLabel:"Configuracion", headerShown:false}} />
+        options={{ tabBarLabel: "Configuracion", headerShown: false }} />
+      <Tab.Screen name="NuevaSolicitudTab" component={NuevaSolicitudStackNavigator}
+        options={{ tabBarStyle: { display: "none" }, headerShown: false, tabBarButton: () => null }} />
+      <Tab.Screen name="EditSolicitudTab" component={EditSolicitudStackNavigator}
+        options={{ tabBarStyle: { display: "none" }, headerShown: false, tabBarButton: () => null }} />
     </Tab.Navigator>
   );
 };

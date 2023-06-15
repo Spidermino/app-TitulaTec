@@ -8,6 +8,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 
 
 export default function NuevaSolicitudScreen({ navigation }) {
+  
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [fecha, setFecha] = useState(new Date(Date.now()));
   const [mode, setMode] = useState('date');
@@ -30,21 +31,39 @@ export default function NuevaSolicitudScreen({ navigation }) {
   };
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <View>
+      <TouchableOpacity onPress={onPress = () => {
+        navigation.navigate("SolicitudesTab")
+      }}>
+        <Image
+          source={require('../assets/Back_arrow.png')}
+          style={{
+            width: 50, height: 50,
+            top: -45,
+            left: -150
+          }}
+        />
+      </TouchableOpacity>
+      <Text style={{
+        fontFamily: 'Montserrat',
+        fontSize: 20,
+        top: -70
+      }}>Nueva solicitud</Text>
+      <View style={{top: -30, left: -70}}>
         <Text style={{
           fontFamily: 'Montserrat',
-          fontSize: 15
+          fontSize: 18,
+          marginBottom: 5
         }}>Fecha de registro: </Text>
         <View style={{ flexDirection: 'row' }} >
           <TouchableOpacity onPress={showPicker}>
             <Image
               source={require('../assets/calendar_120px.png')}
-              style={{ width: 30, height: 30 }}
+              style={{ width: 30, height: 30, left:30 }}
             />
           </TouchableOpacity>
           <Text style={{
-            top: 1, left: 15, fontFamily: 'Montserrat',
-            fontSize: 20
+            top: 1, left: 40, fontFamily: 'Montserrat',
+            fontSize: 18
           }}>{fecha.toLocaleDateString()}</Text>
         </View>
       </View>
@@ -58,81 +77,85 @@ export default function NuevaSolicitudScreen({ navigation }) {
           onChange={onChange}
         />
       )}
-      <View>
+      <View style={{top:-15}}>
         <Text style={{
           fontFamily: 'Montserrat',
-          fontSize: 15
+          fontSize: 18
         }}>Opción de titulación: </Text>
         <View>
-          <DropDownPicker
-            style={{ width: 250, zIndex: 9999, backgroundColor: '#fff' }}
-            placeholder="Selecciona una opción"
-            open={open}
-            value={value}
-            items={[
-              { label: 'Tesis', value: 'Tesis' },
-              { label: 'Exámen Ceneval', value: 'Examen Ceneval' },
-              { label: 'Proyecto de investigación', value: 'Proyecton de investigacion' },
-            ]}
-            defaultValue={valueDrop}
-            onChangeItem={(item) => setValueDrop(item.value)}
-            setOpen={setOpen}
-            setValue={setValue}
-
-            dropDownContainerStyle={{ backgroundColor: '#000',zIndex: 1000, elevation: 1000}}
+        <TextInput style={{borderBottomWidth: 1.0, 
+          borderTopWidth: 1.0, borderLeftWidth: 1.0,
+          borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
+          fontSize: 15, width: 300, height: 35}}
+            keyboardType="numeric"
           />
         </View>
 
       </View>
-      <View>
+      <View style={{top:-10}}>
         <Text style={{
           fontFamily: 'Montserrat',
-          fontSize: 15
+          fontSize: 18
         }}>Numero de control: </Text>
         <View>
-          <TextInput
+        <TextInput style={{borderBottomWidth: 1.0, 
+          borderTopWidth: 1.0, borderLeftWidth: 1.0,
+          borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
+          fontSize: 15, width: 300, height: 35}}
             keyboardType="numeric"
           />
         </View>
 
       </View>
-      <View>
+      <View style={{top:-5}}>
         <Text style={{
           fontFamily: 'Montserrat',
-          fontSize: 15
+          fontSize: 18
         }}>Coordinador: </Text>
         <View>
-          <TextInput
+        <TextInput style={{borderBottomWidth: 1.0, 
+          borderTopWidth: 1.0, borderLeftWidth: 1.0,
+          borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
+          fontSize: 15, width: 300, height: 35}}
           />
         </View>
       </View>
       <View>
         <Text style={{
           fontFamily: 'Montserrat',
-          fontSize: 15
+          fontSize: 18
         }}>Nombre de Proyecto: </Text>
         <View>
-          <TextInput
+        <TextInput style={{borderBottomWidth: 1.0, 
+          borderTopWidth: 1.0, borderLeftWidth: 1.0,
+          borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
+          fontSize: 15, width: 300, height: 35}}
           />
         </View>
       </View>
       <View>
         <Text style={{
           fontFamily: 'Montserrat',
-          fontSize: 15
+          fontSize: 18
         }}>Producto: </Text>
         <View>
-          <TextInput
+        <TextInput style={{borderBottomWidth: 1.0, 
+          borderTopWidth: 1.0, borderLeftWidth: 1.0,
+          borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
+          fontSize: 15, width: 300, height: 35}}
           />
         </View>
       </View>
       <View>
         <Text style={{
           fontFamily: 'Montserrat',
-          fontSize: 15
+          fontSize: 18
         }}>Numero de estudiantes: </Text>
         <View>
-          <TextInput
+        <TextInput style={{borderBottomWidth: 1.0, 
+          borderTopWidth: 1.0, borderLeftWidth: 1.0,
+          borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
+          fontSize: 15, width: 300, height: 35}}
             keyboardType="numeric"
 
           />
@@ -141,10 +164,13 @@ export default function NuevaSolicitudScreen({ navigation }) {
       <View>
         <Text style={{
           fontFamily: 'Montserrat',
-          fontSize: 15
+          fontSize: 18
         }}>Observaciones: </Text>
         <View>
-          <TextInput
+          <TextInput style={{borderBottomWidth: 1.0, 
+          borderTopWidth: 1.0, borderLeftWidth: 1.0,
+          borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
+          fontSize: 15, width: 300, height:120}}
             multiline={true}
             numberOfLines={5}
           />

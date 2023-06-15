@@ -1,5 +1,6 @@
-import React from "react";
+import React,{useState}from "react";
 import { View, Text } from "react-native";
+import { FAB , Badge} from "@rneui/base";
 
 export default function DatosSolicitudScreen({ route, navigation }) {
   const { item } = route.params;
@@ -17,22 +18,23 @@ export default function DatosSolicitudScreen({ route, navigation }) {
   });
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <View>
-        <Text>Nombre del proyecto:</Text>
-        <Text>{solicitud.nombre}</Text>
-        <Text>Producto:</Text>
-        <Text>{solicitud.producto}</Text>
-        <Text>Numero de estudiantes:</Text>
-        <Text>{solicitud.numeroEstudiantes}</Text>
-        <Text>Observaciones:</Text>
-        <Text>{solicitud.observaciones}</Text>
-        <Text>Fecha de registro:</Text>
-        <Text>{solicitud.fechaRegistro}</Text>
-        <Text>Fecha de atención:</Text>
-        <Text>{solicitud.fechaAtencion}</Text>
-        <Text>Estatus:</Text>
-        if (solicitud.estatus === 'E') {
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center"}}>
+      <View style={{top: -20}}>
+        <Text style={{fontFamily:'Montserrat', fontSize:20}}>Nombre del proyecto:</Text>
+        <Text style={{fontFamily:'Montserrat', fontSize:15}}>{solicitud.nombre}</Text>
+        <Text style={{fontFamily:'Montserrat', fontSize:20}}>Producto:</Text>
+        <Text style={{fontFamily:'Montserrat', fontSize:15}}>{solicitud.producto}</Text>
+        <Text style={{fontFamily:'Montserrat', fontSize:20}}>Numero de estudiantes:</Text>
+        <Text style={{fontFamily:'Montserrat'}}>{solicitud.numeroEstudiantes}</Text>
+        <Text style={{fontFamily:'Montserrat', fontSize:20}}>Observaciones:</Text>
+        <Text style={{fontFamily:'Montserrat'}}>{solicitud.observaciones}</Text>
+        <Text style={{fontFamily:'Montserrat', fontSize:20}}>Fecha de registro:</Text>
+        <Text style={{fontFamily:'Montserrat'}}>{solicitud.fechaRegistro}</Text>
+        <Text style={{fontFamily:'Montserrat', fontSize:20}}>Fecha de atención:</Text>
+        <Text style={{fontFamily:'Montserrat'}}>{solicitud.fechaAtencion}</Text>
+        <View style={{flexDirection:'row', marginBottom:5}}>
+        <Text style={{fontFamily:'Montserrat', fontSize:20, top:-8}}>Estatus:   </Text>
+        { solicitud.estatus === 'E' ? (
           <Badge
             badgeStyle={{ backgroundColor: "#FBF2CB" }}
             containerStyle={{}}
@@ -42,7 +44,7 @@ export default function DatosSolicitudScreen({ route, navigation }) {
             value="En espera"
             options={{}}
           />
-        }else if(solicitud.estatus === 'R'){
+        ) : solicitud.estatus === 'R' ? (
           <Badge
             badgeStyle={{ backgroundColor: "#FDE9E9" }}
             containerStyle={{}}
@@ -52,7 +54,7 @@ export default function DatosSolicitudScreen({ route, navigation }) {
             value="Rechazada"
             options={{}}
           />
-        }else if(solicitud.estatus === 'A'){
+        ) : solicitud.estatus === 'A' ? (
           <Badge
             badgeStyle={{ backgroundColor: "#D9F9E6" }}
             containerStyle={{}}
@@ -62,45 +64,55 @@ export default function DatosSolicitudScreen({ route, navigation }) {
             value="Aceptada"
             options={{}}
           />
-        }
-        <Text>Opcion:</Text>
-        <Text>{solicitud.opcion}</Text>
-        <Text>Numero de control:</Text>
-        <Text>{solicitud.noControl}</Text>
-        <Text>Coordinador:</Text>
-        <Text>{solicitud.coordinador}</Text>
+        ) : null
+      }
       </View>
+        <Text style={{fontFamily:'Montserrat', fontSize:20}}>Opcion:</Text>
+        <Text style={{fontFamily:'Montserrat', fontSize:15}}>{solicitud.opcion}</Text>
+        <Text style={{fontFamily:'Montserrat', fontSize:20}}>Numero de control:</Text>
+        <Text style={{fontFamily:'Montserrat', fontSize:15}}>{solicitud.noControl}</Text>
+        <Text style={{fontFamily:'Montserrat', fontSize:20}}>Coordinador:</Text>
+        <Text style={{fontFamily:'Montserrat', fontSize:15}}>{solicitud.coordinador}</Text>
+      </View>
+      <View>
       <FAB onPress={() => {
-        navigation.navigate("NuevaSolicitud");
+        navigation.navigate("EditSolicitudTab", { screen: 'EditSolicitud', params: {item:item} });
+        
       }}
-        style={{ width: "80%", margin: 20, left: 150 }}
+        style={{ width: "80%", margin: -110, left: -200 }}
         placement="left"
-        color="#0080FF"
+        color="#7C1C73"
         size="large"
         overlayColor="#454545"
         icon={{ name: "edit", color: "#fff" }}
       />
+      </View>
+      <View>
       <FAB onPress={() => {
         navigation.navigate("NuevaSolicitud");
       }}
-        style={{ width: "80%", margin: 20, left: 150 }}
+        style={{ width: "80%",margin: -110, left:-50 }}
         placement="left"
-        color="#0080FF"
+        color="#C90000"
         size="large"
         overlayColor="#454545"
         icon={{ name: "delete", color: "#fff" }}
       />
+      </View>
+      
+      <View>
       <FAB onPress={() => {
         navigation.navigate("NuevaSolicitud");
       }}
-        style={{ width: "80%", margin: 20, left: 150 }}
+        style={{ width: "80%", margin: -110, left:90 }}
         placement="left"
-        color="#0080FF"
+        color="#04764B"
         size="large"
         overlayColor="#454545"
-        text="Consultar evidencias"
         icon={{ name: "search", color: "#fff" }}
       />
+      </View>
+      
     </View>
   );
 }

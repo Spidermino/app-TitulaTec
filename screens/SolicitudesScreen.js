@@ -40,7 +40,7 @@ export default function SolicitudesScreen({navigation}) {
           <Text style={styles.title}>{item.nombre}</Text> 
           <View style={{flexDirection:'row'}}>
           <Text>Estatus:</Text>
-          if (item.estatus === 'E') {
+          {item.estatus === 'E' ? (
                 <Badge
                   badgeStyle={{ backgroundColor: "#FBF2CB" }}
                   containerStyle={{}}
@@ -50,7 +50,7 @@ export default function SolicitudesScreen({navigation}) {
                   value="En espera"
                   options={{}}
                 />
-          }else if(item.estatus === 'R'){
+          ) : item.estatus === 'R' ? (
                 <Badge
                   badgeStyle={{ backgroundColor: "#FDE9E9" }}
                   containerStyle={{}}
@@ -60,7 +60,7 @@ export default function SolicitudesScreen({navigation}) {
                   value="Rechazada"
                   options={{}}
                 />
-          }else if(item.estatus === 'A'){
+          ) : item.estatus === 'A' ? (
                 <Badge
                   badgeStyle={{ backgroundColor: "#D9F9E6" }}
                   containerStyle={{}}
@@ -70,12 +70,13 @@ export default function SolicitudesScreen({navigation}) {
                   value="Aceptada"
                   options={{}}
                 />
-          }
-          <Text>No. Control:  {item.noControl}</Text>
+          ) : null
+        }
+          <Text>                No. Control:  {item.noControl}</Text>
           </View>
           <View style={{flexDirection:'row'}}>
-          <Text><Ionicons name="calendar-outline" size={16} />{item.fechaRegistro}      </Text>
-          <Text>Opción:  {item.opcion}</Text>
+          <Text><Ionicons name="calendar-outline" size={16} /> {item.fechaRegistro}      </Text>
+          <Text>                Opción:  {item.opcion}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -110,7 +111,7 @@ export default function SolicitudesScreen({navigation}) {
       />
 
 <FAB onPress={() => {
-    navigation.navigate("NuevaSolicitud");
+    navigation.navigate("NuevaSolicitudTab");
   }}
           style={{ width: "80%", margin: 20, left: 150 }}
           placement="left"
