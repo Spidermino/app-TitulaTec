@@ -30,7 +30,7 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="LoginTab" component={LoginStackNavigator}
         options={{ tabBarStyle: { display: "none" }, headerShown: false, tabBarButton: () => null }} />
       <Tab.Screen name="MenuTab" component={MenuStackNavigator}
-        options={{ tabBarLabel: "Menú", headerShown: false }} />
+        options={{ tabBarLabel: "Menú",tabBarStyle: { display: "none" }, headerShown: false }} />
       <Tab.Screen name="SolicitudesTab" component={SolicitudesStackNavigator}
         options={{ tabBarLabel: "Solicitudes", headerShown: false }} />
       <Tab.Screen name="ConfiguracionTab" component={ConfiguracionStackNavigator}

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { FAB } from "@rneui/base";
 
@@ -8,6 +7,7 @@ export default function EditSolicitudScreen({ route, navigation }) {
     const { item } = route.params;
     const [bandera, setBandera] = useState(false);
     const [solicitud, setSolicitud] = useState({
+        idSol: item.idSolicitud,
         nombre: item.nombre,
         producto: item.producto,
         numeroEstudiantes: item.numeroEstudiantes,
@@ -55,10 +55,47 @@ export default function EditSolicitudScreen({ route, navigation }) {
             setIsPickerShow(false);
         }
     };
+
+    const updateData = () => {
+        var myHeaders = new Headers();
+        if (bandera === true) {
+            solicitud.fechaRegistro = fecha.toLocaleDateString()
+        }
+
+
+        // myHeaders.append(
+        //   "Authorization",
+        //   "Bearer 62ddfa7559d5fdec64517e3ab70ee4fd60b2244e71fa042a44f914f8fa688263"
+        // );
+        myHeaders.append("Content-Type", "application/json");
+        fetch("http://192.168.1.231:3000/solicitudes/" + solicitud.idSol, {
+            method: "PATCH",
+            headers: myHeaders,
+            body: JSON.stringify({
+                nombre: solicitud.nombre,
+                producto: solicitud.producto,
+                numeroEstudiantes: parseInt(solicitud.numeroEstudiantes),
+                observaciones: solicitud.observaciones,
+                fechaRegistro: solicitud.fechaRegistro,
+                opcion: solicitud.opcion,
+                noControl: parseInt(solicitud.noControl),
+                coordinador: solicitud.coordinador,
+            }),
+        })
+            .then((response) => {
+                response.text();
+                navigation.navigate("SolicitudesTab", { screen: 'Solicitudes' });
+            })
+            .then((result) => console.log(result))
+            .catch((error) => console.log(error));
+    };
+
+ 
+
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
             <TouchableOpacity onPress={onPress = () => {
-                navigation.navigate("DatosSolicitud", {item:item})
+                navigation.navigate("DatosSolicitud", { item: item })
             }}>
                 <Image
                     source={require('../assets/Back_arrow.png')}
@@ -182,7 +219,7 @@ export default function EditSolicitudScreen({ route, navigation }) {
                     />
                 </View>
             </View>
-            <View style={{ top: -5}}>
+            <View style={{ top: -5 }}>
                 <Text style={{
                     fontFamily: 'Montserrat',
                     fontSize: 18
@@ -237,9 +274,7 @@ export default function EditSolicitudScreen({ route, navigation }) {
                     />
                 </View>
             </View>
-            <FAB onPress={() => {
-                navigation.navigate("Solicitud");
-            }}
+            <FAB onPress={updateData}
                 style={{ width: "80%", margin: 20, left: 150 }}
                 placement="left"
                 color="#0080FF"
