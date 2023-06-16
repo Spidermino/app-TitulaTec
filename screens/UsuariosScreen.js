@@ -8,11 +8,13 @@ import { useIsFocused } from '@react-navigation/native';
 export default function UsuariosScreen({ navigation }) {
   const [usuario, setUsuario] = useState();
   const isFocused = useIsFocused();
-
+const onChangeNombre = (value) => {
+    setUsuario({ ...usuario, nombre: value });
+  };
   const getUsuarioData = async () => {
     try {
       //   const headers = { "Content-Type": "application/json" };
-      let response = await fetch("http://192.168.1.231:3000/usuarios");
+      let response = await fetch("http://192.168.0.176:3000/usuarios");
       let data = await response.json();
       setUsuario(data);
     } catch (error) {
