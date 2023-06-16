@@ -6,7 +6,7 @@ import {
   MenuStackNavigator, SolicitudesStackNavigator,
   ConfiguracionStackNavigator, LoginStackNavigator, NuevaSolicitudStackNavigator, 
   EditSolicitudStackNavigator, EvidenciasStackNavigator, NuevaEvidenciaStackNavigator,
-  EditEvidenciaStackNavigator
+  EditEvidenciaStackNavigator, UsuariosStackNavigator, NuevoUsuarioStackNavigator
 } from "./StackNavigator";
 //{logged === true ? </BottomTabNavigator> : </Login>}
 const Tab = createBottomTabNavigator();
@@ -22,6 +22,8 @@ const BottomTabNavigator = () => {
           iconName = focused ? "clipboard-outline" : "clipboard";
         } else if (route.name === "ConfiguracionTab") {
           iconName = focused ? "cog-outline" : "cog";
+        }else if (route.name === "UsuariosTab") {
+          iconName = focused ? "people-outline" : "people";
         }else if (route.name === "EvidenciasTab") {
           iconName = focused ? "folder-open-outline" : "folder";
         }
@@ -39,6 +41,8 @@ const BottomTabNavigator = () => {
         options={{ tabBarLabel: "Solicitudes", headerShown: false }} />
          <Tab.Screen name="EvidenciasTab" component={EvidenciasStackNavigator}
         options={{ tabBarLabel: "Evidencias", headerShown: false }} />
+        <Tab.Screen name="UsuariosTab" component={UsuariosStackNavigator}
+        options={{ tabBarLabel:"Usuarios", headerShown: false}} />
       <Tab.Screen name="ConfiguracionTab" component={ConfiguracionStackNavigator}
         options={{ tabBarLabel: "Configuracion", headerShown: false }} />
       <Tab.Screen name="NuevaSolicitudTab" component={NuevaSolicitudStackNavigator}
@@ -49,7 +53,8 @@ const BottomTabNavigator = () => {
         options={{ tabBarStyle: { display: "none" }, headerShown: false, tabBarButton: () => null }} />
       <Tab.Screen name="EditEvidenciaTab" component={EditEvidenciaStackNavigator}
         options={{ tabBarStyle: { display: "none" }, headerShown: false, tabBarButton: () => null }} />
-       
+        <Tab.Screen name="NuevoUsuarioTab" component={NuevoUsuarioStackNavigator}
+        options={{ tabBarStyle: { display: "none" }, headerShown: false, tabBarButton: () => null }} />
     </Tab.Navigator>
   );
 };

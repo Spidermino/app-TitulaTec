@@ -1,63 +1,89 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { RadioButton } from 'react-native-paper';
 import { FAB } from "@rneui/base";
 
 
-export default function NuevaSolicitudScreen({ navigation }) {
-  const [solicitud, setSolicitud] = useState({
+export default function NuevoUsuarioScreen({ navigation }) {
+  const [usuario, setUsuario] = useState({
     nombre: "",
-    producto: "",
-    numeroEstudiantes: 0,
-    observaciones: "",
-    fechaRegistro: "",
-    fechaAtencion: "",
-    estatus: "",
-    opcion: "",
-    noControl: 0,
-    coordinador: ""
+    sexo: "",
+    telefono: "",
+    email: "",
+    domicilio: "",
+    password: "",
   });
-  const [isPickerShow, setIsPickerShow] = useState(false);
-  const [fecha, setFecha] = useState(new Date(Date.now()));
-  const [mode, setMode] = useState('date');
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
-  const [valueDrop, setValueDrop] = useState(null);
-
-  const showPicker = () => {
-    setIsPickerShow(true);
+  const [alumno, setAlumno] = useState({
+    noControl: 0,
+    anioEgreso: 0,
+    idUsuario: 0
+  });
+  const filter = {
+    fields: { idUsuario: true },
+    order: 'idUsuario DESC',
+    limit: 1,
   };
-
-  const onChange = (event, value) => {
-    setFecha(value);
-    if (Platform.OS === 'android') {
-      setIsPickerShow(false);
+  
+  const getIdUserData = async () => {
+    try {
+      //   const headers = { "Content-Type": "application/json" };
+      let response = await fetch('http://192.168.1.231:3000/usuarios?filter='+JSON.stringify(filter));
+      let data = await response.json();
+      console.log("data:");
+      console.log(data)
+      return data;
+        } catch (error) {
+      console.error(error);
     }
   };
-
-  const saveData = () => {
+  const saveAlumno = async () => {
     var myHeaders = new Headers();
-    console.log(solicitud);
+    const idUser= await getIdUserData();
+    const id = parseInt(idUser[0].idUsuario); 
     myHeaders.append("Content-Type", "application/json");
-    fetch("http://192.168.1.231:3000/solicitudes", {
+    fetch("http://192.168.1.231:3000/alumnos", {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify({
-        nombre: solicitud.nombre,
-        producto: solicitud.producto,
-        numeroEstudiantes: parseInt(solicitud.numeroEstudiantes),
-        observaciones: solicitud.observaciones,
-        fechaRegistro: fecha.toLocaleDateString(),
-        estatus: "E",
-        opcion: solicitud.opcion,
-        noControl: parseInt(solicitud.noControl),
-        coordinador: solicitud.coordinador,
+        noControl: parseInt(alumno.noControl),
+        anioEgreso: parseInt(alumno.anioEgreso),
+        idUsuario: id
       }),
     })
       .then((response) => response.json())
       .then((result) => {
         console.log("Result");
-        navigation.navigate("SolicitudesTab");
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log("Error");
+        console.log(error);
+      });
+  };
+
+  const saveData = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    fetch("http://192.168.1.231:3000/usuarios", {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify({
+        nombre: usuario.nombre,
+        sexo: usuario.sexo,
+        telefono: usuario.telefono,
+        email: usuario.email,
+        domicilio: usuario.domicilio,
+        password: usuario.password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log("Result");
+        console.log("usuario")
+        console.log(usuario)
+        saveAlumno();
+        navigation.navigate("UsuariosTab");
         console.log(result);
       })
       .catch((error) => {
@@ -66,30 +92,33 @@ export default function NuevaSolicitudScreen({ navigation }) {
       });
   };
   const onChangeNombre = (value) => {
-    setSolicitud({ ...solicitud, nombre: value });
+    setUsuario({ ...usuario, nombre: value });
   };
-  const onChangeProducto = (value) => {
-    setSolicitud({ ...solicitud, producto: value });
+  const onChangeSexo= (value) => {
+    setUsuario({ ...usuario, sexo: value });
   };
-  const onChangeNumeroE = (value) => {
-    setSolicitud({ ...solicitud, numeroEstudiantes: value });
+  const onChangeTelefono = (value) => {
+    setUsuario({ ...usuario, telefono: value });
   };
-  const onChangeObservaciones = (value) => {
-    setSolicitud({ ...solicitud, observaciones: value });
+  const onChangeEmail = (value) => {
+    setUsuario({ ...usuario, email: value });
   };
-  const onChangeOpcion = (value) => {
-    setSolicitud({ ...solicitud, opcion: value });
+  const onChangeDomicilio = (value) => {
+    setUsuario({ ...usuario, domicilio: value });
+  };
+  const onChangePassword = (value) => {
+    setUsuario({ ...usuario, password: value });
   };
   const onChangeNoControl = (value) => {
-    setSolicitud({ ...solicitud, noControl: value });
+    setAlumno({ ...alumno, noControl: value });
   };
-  const onChangeCoordinador = (value) => {
-    setSolicitud({ ...solicitud, coordinador: value });
+  const onChangeAnioEgreso = (value) => {
+    setAlumno({ ...alumno, anioEgreso: value });
   };
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <TouchableOpacity onPress={onPress = () => {
-        navigation.navigate("SolicitudesTab")
+        navigation.navigate("UsuariosTab")
       }}>
         <Image
           source={require('../assets/Back_arrow.png')}
@@ -104,41 +133,12 @@ export default function NuevaSolicitudScreen({ navigation }) {
         fontFamily: 'Montserrat',
         fontSize: 20,
         top: -70
-      }}>Nueva solicitud</Text>
-      <View style={{ top: -30, left: -70 }}>
-        <Text style={{
-          fontFamily: 'Montserrat',
-          fontSize: 18,
-          marginBottom: 5
-        }}>Fecha de registro: </Text>
-        <View style={{ flexDirection: 'row' }} >
-          <TouchableOpacity onPress={showPicker}>
-            <Image
-              source={require('../assets/calendar_120px.png')}
-              style={{ width: 30, height: 30, left: 30 }}
-            />
-          </TouchableOpacity>
-          <Text style={{
-            top: 1, left: 40, fontFamily: 'Montserrat',
-            fontSize: 18
-          }}>{fecha.toLocaleDateString()}</Text>
-        </View>
-      </View>
-
-      {isPickerShow && mode === 'date' && (
-        <DateTimePicker
-          value={fecha}
-          mode={'date'}
-          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          is24Hour={true}
-          onChange={onChange}
-        />
-      )}
+      }}>Nuevo usuario</Text>
       <View style={{ top: -15 }}>
         <Text style={{
           fontFamily: 'Montserrat',
           fontSize: 18
-        }}>Opción de titulación: </Text>
+        }}>Nombre: </Text>
         <View>
           <TextInput style={{
             borderBottomWidth: 1.0,
@@ -146,14 +146,91 @@ export default function NuevaSolicitudScreen({ navigation }) {
             borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
             fontSize: 15, width: 300, height: 35
           }}
-
-            onChangeText={(value) => onChangeOpcion(value)}
+            onChangeText={(value) => onChangeNombre(value)}
+          />
+        </View>
+        <View>
+        <Text style={{
+          fontFamily: 'Montserrat',
+          fontSize: 18
+        }}>Sexo: </Text>
+        <View style={{ flexDirection: 'row', left: -30 }}>
+          <RadioButton
+            value="Masculino"
+            status={usuario.sexo === 'Masculino' ? 'checked' : 'unchecked'}
+            onPress={() => onChangeSexo("Masculino")}
+          />
+          <Text style={{
+            top: 5, fontFamily: 'Montserrat',
+            fontSize: 15
+          }}>Masculino</Text>
+        </View>
+        <View style={{ flexDirection: 'row', left: -30 }}>
+          <RadioButton
+            value="Femenino"
+            status={usuario.sexo === 'Femenino' ? 'checked' : 'unchecked'}
+            onPress={() => onChangeSexo("Femenino")}
+          />
+          <Text style={{
+            top: 5, fontFamily: 'Montserrat',
+            fontSize: 15
+          }}>Femenino</Text>
+        </View>
+      </View>
+      </View>
+      <View style={{ top: -10 }}>
+        <Text style={{
+          fontFamily: 'Montserrat',
+          fontSize: 18
+        }}>Telefono: </Text>
+        <View>
+          <TextInput style={{
+            borderBottomWidth: 1.0,
+            borderTopWidth: 1.0, borderLeftWidth: 1.0,
+            borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
+            fontSize: 15, width: 300, height: 35
+          }}
+            keyboardType="numeric"
+            onChangeText={(value) => onChangeTelefono(value)}
 
           />
         </View>
-
       </View>
-      <View style={{ top: -10 }}>
+      <View style={{ top: -5 }}>
+        <Text style={{
+          fontFamily: 'Montserrat',
+          fontSize: 18
+        }}>Email: </Text>
+        <View>
+          <TextInput style={{
+            borderBottomWidth: 1.0,
+            borderTopWidth: 1.0, borderLeftWidth: 1.0,
+            borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
+            fontSize: 15, width: 300, height: 35
+          }}
+            onChangeText={(value) => onChangeEmail(value)}
+
+          />
+        </View>
+      </View>
+      <View>
+        <Text style={{
+          fontFamily: 'Montserrat',
+          fontSize: 18
+        }}>Domicilio: </Text>
+        <View>
+          <TextInput style={{
+            borderBottomWidth: 1.0,
+            borderTopWidth: 1.0, borderLeftWidth: 1.0,
+            borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
+            fontSize: 15, width: 300, height: 35
+          }}
+            onChangeText={(value) => onChangeDomicilio(value)}
+
+          />
+        </View>
+      </View>
+      <View>
         <Text style={{
           fontFamily: 'Montserrat',
           fontSize: 18
@@ -165,69 +242,17 @@ export default function NuevaSolicitudScreen({ navigation }) {
             borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
             fontSize: 15, width: 300, height: 35
           }}
-            keyboardType="numeric"
+          keyboardType="numeric"
             onChangeText={(value) => onChangeNoControl(value)}
 
           />
         </View>
-
-      </View>
-      <View style={{ top: -5 }}>
-        <Text style={{
-          fontFamily: 'Montserrat',
-          fontSize: 18
-        }}>Coordinador: </Text>
-        <View>
-          <TextInput style={{
-            borderBottomWidth: 1.0,
-            borderTopWidth: 1.0, borderLeftWidth: 1.0,
-            borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
-            fontSize: 15, width: 300, height: 35
-          }}
-            onChangeText={(value) => onChangeCoordinador(value)}
-
-          />
-        </View>
       </View>
       <View>
         <Text style={{
           fontFamily: 'Montserrat',
           fontSize: 18
-        }}>Nombre de Proyecto: </Text>
-        <View>
-          <TextInput style={{
-            borderBottomWidth: 1.0,
-            borderTopWidth: 1.0, borderLeftWidth: 1.0,
-            borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
-            fontSize: 15, width: 300, height: 35
-          }}
-            onChangeText={(value) => onChangeNombre(value)}
-
-          />
-        </View>
-      </View>
-      <View>
-        <Text style={{
-          fontFamily: 'Montserrat',
-          fontSize: 18
-        }}>Producto: </Text>
-        <View>
-          <TextInput style={{
-            borderBottomWidth: 1.0,
-            borderTopWidth: 1.0, borderLeftWidth: 1.0,
-            borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
-            fontSize: 15, width: 300, height: 35
-          }}
-            onChangeText={(value) => onChangeProducto(value)}
-
-          />
-        </View>
-      </View>
-      <View>
-        <Text style={{
-          fontFamily: 'Montserrat',
-          fontSize: 18
-        }}>Numero de estudiantes: </Text>
+        }}>Año de egreso: </Text>
         <View>
           <TextInput style={{
             borderBottomWidth: 1.0,
@@ -236,7 +261,7 @@ export default function NuevaSolicitudScreen({ navigation }) {
             fontSize: 15, width: 300, height: 35
           }}
             keyboardType="numeric"
-            onChangeText={(value) => onChangeNumeroE(value)}
+            onChangeText={(value) => onChangeAnioEgreso(value)}
           />
         </View>
       </View>
@@ -244,17 +269,15 @@ export default function NuevaSolicitudScreen({ navigation }) {
         <Text style={{
           fontFamily: 'Montserrat',
           fontSize: 18
-        }}>Observaciones: </Text>
+        }}>Contraseña: </Text>
         <View>
           <TextInput style={{
             borderBottomWidth: 1.0,
             borderTopWidth: 1.0, borderLeftWidth: 1.0,
             borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
-            fontSize: 15, width: 300, height: 120
+            fontSize: 15, width: 300, height: 35
           }}
-            multiline={true}
-            numberOfLines={5}
-            onChangeText={(value) => onChangeObservaciones(value)}
+            onChangeText={(value) => onChangePassword(value)}
           />
         </View>
       </View>

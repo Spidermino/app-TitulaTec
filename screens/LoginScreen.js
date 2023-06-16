@@ -1,18 +1,47 @@
-import React from "react";
+import React , {useState} from "react";
 import { View, Text, Alert, TextInput, StyleSheet, Image } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Button, Input } from "@rneui/base";
 import { useFonts } from 'expo-font';
 
 export default function LoginScreen({ navigation }) {
+ 
+  y[nom, setNombre] = useState('');
+  const [password, setPassword] = useState('');
+  const [usuario, setUsuario] = useState();
 
-  const [loaded] = useFonts({
-    Montserrat: require('../assets/fonts/Outfit-Bold.ttf'),
-  });
+  const getUsuarioData = async () => {
+    try {
+      const response = await fetch("http://192.168.1.231:3000/usuarios");
+      const data = await response.json();
+      console.log(data);
+      setUsuario(data);
+    } catch (error) {
+      Alert.alert('Aviso', 'No es posible conectar.');
+      console.log('b');
+      console.error(error);
+    }
+  };
 
-  if (!loaded) {
-    return null;
-  }
+  useState(() => {
+    getUsuarioData();
+  }, []);
+
+  const validarUsuario = () => {
+    console.log("comprobación xd")
+console.log(usuario.nombre)
+console.log(usuario.password)
+console.log(nom)
+console.log(password)
+    const user = usuario.find((usuario) => usuario.nombre === nom && usuario.password === password);
+    if (user) {
+      Alert.alert('', 'Sesión iniciada con éxito',
+        [{ text: 'Aceptar', onPress: () => navigation.navigate("MenuTab") },]);
+    } else {
+      Alert.alert('', 'Usuario o contraseña incorrectos',
+        [{ text: 'Aceptar' },]);
+    }
+  };
   return (
 
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -56,7 +85,9 @@ export default function LoginScreen({ navigation }) {
         leftIcon={<Ionicons name="mail-outline" size={20} />}
         leftIconContainerStyle={{}}
         rightIconContainerStyle={{}}
-        placeholder="Ingresa el correo"
+        placeholder="Ingresa el usuario"
+        value={nom}
+        onChangeText={setNombre}
       />
       <Input
         containerStyle={{}}
@@ -72,6 +103,8 @@ export default function LoginScreen({ navigation }) {
         leftIconContainerStyle={{}}
         rightIconContainerStyle={{}}
         placeholder="Ingresa la contraseña"
+        value={password}
+        onChangeText={setPassword}
         secureTextEntry={true}
       />
       <Button
@@ -93,8 +126,7 @@ export default function LoginScreen({ navigation }) {
         }
         loadingProps={{ animating: true }}
         loadingStyle={{}}
-        onPress={() => Alert.alert('', 'Sesión iniciada con éxito',
-          [{ text: 'Aceptar', onPress: () => navigation.navigate("MenuTab") },])}
+        onPress={() => validarUsuario()}
         title="Iniciar sesión"
         titleProps={{}}
         titleStyle={{ marginHorizontal: 5 }}

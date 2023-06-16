@@ -12,6 +12,10 @@ import EditSolicitudScreen from "../screens/EditSolicitudScreen";
 import EvidenciasScreen from "../screens/EvidenciasScreen";
 import NuevaEvidenciaScreen from "../screens/NuevaEvidenciaScreen";
 import EditEvidenciaScreen from "../screens/EditEvidenciaScreen";
+import DatosEvidenciaScreen from "../screens/DatosEvidenciaScreen";
+import UsuariosScreen from "../screens/UsuariosScreen";
+import NuevoUsuarioScreen from "../screens/NuevoUsuarioScreen";
+import DatosUsuarioScreen from "../screens/DatosUsuarioScreen";
 
 
 
@@ -84,6 +88,7 @@ const EvidenciasStackNavigator = () => {
       headerShown: false
     }}>
       <Stack.Screen name="Evidencias" component={EvidenciasScreen} />
+      <Stack.Screen name="DatosEvidencia" component={DatosEvidenciaScreen}/>
       
     </Stack.Navigator>
   );
@@ -106,9 +111,29 @@ const EditEvidenciaStackNavigator = () => {
     </Stack.Navigator>
   );
 }
+const UsuariosStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false
+    }}>
+      <Stack.Screen name="Usuarios" component={UsuariosScreen} />
+      <Stack.Screen name="DatosUsuario" component={DatosUsuarioScreen} />
+    </Stack.Navigator>
+  );
+}
+const NuevoUsuarioStackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{
+      headerShown: false
+    }}>
+      <Stack.Screen name="NuevoUsuario" component={NuevoUsuarioScreen} />
+    </Stack.Navigator>
+  );
+}
 
 export {
   MenuStackNavigator, SolicitudesStackNavigator, ConfiguracionStackNavigator,
   LoginStackNavigator, NuevaSolicitudStackNavigator, EditSolicitudStackNavigator,
-  EvidenciasStackNavigator, EditEvidenciaStackNavigator, NuevaEvidenciaStackNavigator
+  EvidenciasStackNavigator, EditEvidenciaStackNavigator, NuevaEvidenciaStackNavigator,
+  UsuariosStackNavigator, NuevoUsuarioStackNavigator
 };

@@ -84,8 +84,32 @@ export default function MenuScreen({ navigation }) {
         />
         
       </View>
-      <View style={{ flexDirection: 'row', top: -100, left:-95 }}>
+      <View style={{ flexDirection: 'row', top: -100, left:0 }}>
       <Button
+          buttonStyle={{ backgroundColor: '#04764B', width: 180, paddingVertical: 30 }}
+          containerStyle={{ margin: 5 }}
+          disabledStyle={{
+            borderWidth: 2,
+            borderColor: "#00F"
+          }}
+          disabledTitleStyle={{ color: "#00F" }}
+          linearGradientProps={null}
+          iconContainerStyle={{ background: "#000" }}
+          iconPosition="bottom"
+          icon={
+            <Image
+              source={require('../assets/user_account_120px.png')}
+              style={{ width: 80, height: 80 }}
+            />
+          }
+          loadingProps={{ animating: true }}
+          loadingStyle={{}}
+          onPress={() => navigation.navigate("UsuariosTab")}
+          title="Usuarios"
+          titleProps={{}}
+          titleStyle={{ marginHorizontal: 5 }}
+        />
+        <Button
           buttonStyle={{ backgroundColor: '#0080FF', width: 180, paddingVertical: 30 }}
           containerStyle={{ margin: 5 }}
           disabledStyle={{

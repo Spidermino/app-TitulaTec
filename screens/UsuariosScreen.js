@@ -5,33 +5,33 @@ import { ListItem } from 'react-native-elements';
 import { FAB, Badge } from "@rneui/base";
 import { useIsFocused } from '@react-navigation/native';
 
-export default function SolicitudesScreen({ navigation }) {
-  const [solicitud, setSolicitud] = useState();
+export default function UsuariosScreen({ navigation }) {
+  const [usuario, setUsuario] = useState();
   const isFocused = useIsFocused();
-  
 
-  const getSolicitudData = async () => {
+  const getUsuarioData = async () => {
     try {
       //   const headers = { "Content-Type": "application/json" };
-      let response = await fetch("http://192.168.1.231:3000/solicitudes");
+      let response = await fetch("http://192.168.1.231:3000/usuarios");
       let data = await response.json();
-      setSolicitud(data);
+      setUsuario(data);
     } catch (error) {
       console.error(error);
     }
   };
   useEffect(() => {
     if (isFocused) {
-      getSolicitudData()
+      getUsuarioData()
     }
   }, [isFocused]);
+
 
   const renderItem = ({ item }) => {
     return (
       <TouchableOpacity
         onPress={() =>
 
-          navigation.navigate("DatosSolicitud", {
+          navigation.navigate("DatosUsuario", {
             item: item,
           })
         }
@@ -39,47 +39,13 @@ export default function SolicitudesScreen({ navigation }) {
 
         <View style={styles.item}>
           <Text style={styles.title}>{item.nombre}</Text>
-          <View style={{ flexDirection: 'row' }}>
-            <Text>Estatus:</Text>
-            {item.estatus === 'E' ? (
-              <Badge
-                badgeStyle={{ backgroundColor: "#FBF2CB" }}
-                containerStyle={{}}
-                status="primary"
-                textProps={{}}
-                textStyle={{ color: "#C8811A" }}
-                value="En espera"
-                options={{}}
-              />
-            ) : item.estatus === 'R' ? (
-              <Badge
-                badgeStyle={{ backgroundColor: "#FDE9E9" }}
-                containerStyle={{}}
-                status="primary"
-                textProps={{}}
-                textStyle={{ color: "#CD3636" }}
-                value="Rechazada"
-                options={{}}
-              />
-            ) : item.estatus === 'A' ? (
-              <Badge
-                badgeStyle={{ backgroundColor: "#D9F9E6" }}
-                containerStyle={{}}
-                status="primary"
-                textProps={{}}
-                textStyle={{ color: "#2F9461" }}
-                value="Aceptada"
-                options={{}}
-              />
-            ) : null
-            }
-            <Text>                No. Control:  {item.noControl}</Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <Text><Ionicons name="calendar-outline" size={16} /> {item.fechaRegistro}      </Text>
-            <Text>                Opción:  {item.opcion}</Text>
-          </View>
+          <Text>Sexo:  {item.sexo}</Text>
         </View>
+        <View style={{ flexDirection: 'row' }}>
+          <Text><Ionicons name="mail-outline" size={16} /> {item.email}      </Text>
+          <Text><Ionicons name="call-outline" size={16} /> {item.telefono}</Text>
+        </View>
+
       </TouchableOpacity>
     );
   };
@@ -103,18 +69,18 @@ export default function SolicitudesScreen({ navigation }) {
           fontFamily: 'Montserrat',
           fontSize: 20,
 
-        }}>Solicitudes</Text>
+        }}>Usuarios</Text>
       </View>
       <FlatList
-        data={solicitud}
+        data={usuario}
         renderItem={renderItem}
-        keyExtractor={(item) => item.idSolicitud}
+        keyExtractor={(item) => item.idUsuario}
       />
 
       <FAB onPress={() => {
         navigation.reset({
           index: 0,
-          routes: [{ name: "NuevaSolicitudTab" }],
+          routes: [{ name: "NuevoUsuarioTab" }],
         })
       }}
         style={{ width: "80%", margin: 20, left: 150 }}
