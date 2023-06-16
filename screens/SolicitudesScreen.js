@@ -8,16 +8,12 @@ import { useIsFocused } from '@react-navigation/native';
 export default function SolicitudesScreen({ navigation }) {
   const [solicitud, setSolicitud] = useState();
   const isFocused = useIsFocused();
-  const filter = {
-    where: {
-      idProyecto: '2',
-    },
-  };
+  
 
   const getSolicitudData = async () => {
     try {
       //   const headers = { "Content-Type": "application/json" };
-      let response = await fetch("http://192.168.1.231:3000/solicitudes");
+      let response = await fetch("http://192.168.0.176:3000/solicitudes");
       let data = await response.json();
       setSolicitud(data);
     } catch (error) {

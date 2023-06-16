@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Alert, TouchableOpacity, Image } from "react-native";
 import { FAB, Badge, Card } from "@rneui/base";
 
 export default function DatosSolicitudScreen({ route, navigation }) {
   const { item } = route.params;
-  console.log(item)
   const [solicitud, setSolicitud] = useState({
     idSol: item.idSolicitud,
     nombre: item.nombre,
@@ -29,33 +28,53 @@ export default function DatosSolicitudScreen({ route, navigation }) {
     // );
 
     myHeaders.append("Content-Type", "application/json");
-    fetch("http://192.168.1.231:3000/solicitudes/" + solicitud.idSol, {
-        method: "DELETE",
-        headers: myHeaders,
-        body: JSON.stringify({
-          nombre: solicitud.nombre,
-          producto: solicitud.producto,
-          numeroEstudiantes: solicitud.numeroEstudiantes,
-          observaciones: solicitud.observaciones,
-          fechaRegistro: solicitud.fechaRegistro,
-          fechaAtencion: solicitud.fechaAtencion,
-          estatus: solicitud.estatus,
-          opcion: solicitud.opcion,
-          noControl: solicitud.noControl,
-          coordinador: solicitud.coordinador,
-        }),
+    fetch("http://192.168.0.176:3000/solicitudes/" + solicitud.idSol, {
+      method: "DELETE",
+      headers: myHeaders,
+      body: JSON.stringify({
+        nombre: solicitud.nombre,
+        producto: solicitud.producto,
+        numeroEstudiantes: solicitud.numeroEstudiantes,
+        observaciones: solicitud.observaciones,
+        fechaRegistro: solicitud.fechaRegistro,
+        fechaAtencion: solicitud.fechaAtencion,
+        estatus: solicitud.estatus,
+        opcion: solicitud.opcion,
+        noControl: solicitud.noControl,
+        coordinador: solicitud.coordinador,
+      }),
     })
-        .then((response) => {
-            response.text();
-            navigation.navigate("SolicitudesTab", { screen: 'Solicitudes' });
-          })
-        .then((result) => console.log(result))
-        .catch((error) => console.log(error));
-};
+      .then((response) => {
+        response.text();
+        navigation.navigate("SolicitudesTab", { screen: 'Solicitudes' });
+      })
+      .then((result) => console.log(result))
+      .catch((error) => console.log(error));
+  };
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Card containerStyle={{}} wrapperStyle={{}}>
+      <View>
+        <TouchableOpacity onPress={onPress = () => {
+          navigation.navigate("SolicitudesTab", { screen: 'Solicitudes' });
+        }}>
+
+          <Image
+            source={require('../assets/Back_arrow.png')}
+            style={{
+              width: 50, height: 50,
+              marginBottom: 10, top: -30, left: -80
+            }}
+          />
+        </TouchableOpacity>
+        <Text style={{
+          fontFamily: 'Montserrat',
+          fontSize: 20,
+          top: -70,
+          left: 0
+        }}>Datos de la solicitud</Text>
+      </View>
+      <Card containerStyle={{top:-50}} wrapperStyle={{}}>
         <Text style={{ fontFamily: 'Montserrat', fontSize: 20 }}>Nombre del proyecto:</Text>
         <Text style={{ fontFamily: 'Montserrat', fontSize: 15 }}>{solicitud.nombre}</Text>
         <Card.Divider />
@@ -119,43 +138,27 @@ export default function DatosSolicitudScreen({ route, navigation }) {
         </View>
       </Card>
 
-      <View>
-        <FAB onPress={() => {
-          navigation.navigate("EditSolicitudTab", { screen: 'EditSolicitud', params: { item: item } });
 
-        }}
-          style={{ width: "80%", margin: -110, left: -200 }}
-          placement="left"
-          color="#7C1C73"
-          size="large"
-          overlayColor="#454545"
-          icon={{ name: "edit", color: "#fff" }}
-        />
-      </View>
-      <View>
-        <FAB onPress={deleteData}
-          style={{ width: "80%", margin: -110, left: -50 }}
-          placement="left"
-          color="#C90000"
-          size="large"
-          overlayColor="#454545"
-          icon={{ name: "delete", color: "#fff" }}
-        />
-      </View>
+      <FAB onPress={() => {
+        navigation.navigate("EditSolicitudTab", { screen: 'EditSolicitud', params: { item: item } });
 
-      <View>
-        <FAB onPress={() => {
-          navigation.navigate("NuevaSolicitud");
-        }}
-          style={{ width: "80%", margin: -110, left: 90 }}
-          placement="left"
-          color="#04764B"
-          size="large"
-          overlayColor="#454545"
-          icon={{ name: "search", color: "#fff" }}
-        />
-      </View>
-
+      }}
+        style={{ width: "50%", margin: 20, left: -70 }}
+        placement="left"
+        color="#7C1C73"
+        size="large"
+        overlayColor="#454545"
+        icon={{ name: "edit", color: "#fff" }}
+      />
+      <FAB onPress={() => Alert.alert('', '¿Esta seguro de eliminar la solicitud de ' + solicitud.nombre + '?',
+        [{ text: 'Si', onPress: deleteData }, { text: 'No', style: 'cancel' }], { cancelable: false })}
+        style={{ width: "50%", margin: 20, left: 70 }}
+        placement="left"
+        color="#C90000"
+        size="large"
+        overlayColor="#454545"
+        icon={{ name: "delete", color: "#fff" }}
+      />
     </View>
   );
 }

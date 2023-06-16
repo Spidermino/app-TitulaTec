@@ -4,7 +4,9 @@ import { Ionicons } from "@expo/vector-icons";
 
 import {
   MenuStackNavigator, SolicitudesStackNavigator,
-  ConfiguracionStackNavigator, LoginStackNavigator, NuevaSolicitudStackNavigator, EditSolicitudStackNavigator
+  ConfiguracionStackNavigator, LoginStackNavigator, NuevaSolicitudStackNavigator, 
+  EditSolicitudStackNavigator, EvidenciasStackNavigator, NuevaEvidenciaStackNavigator,
+  EditEvidenciaStackNavigator
 } from "./StackNavigator";
 //{logged === true ? </BottomTabNavigator> : </Login>}
 const Tab = createBottomTabNavigator();
@@ -20,6 +22,8 @@ const BottomTabNavigator = () => {
           iconName = focused ? "clipboard-outline" : "clipboard";
         } else if (route.name === "ConfiguracionTab") {
           iconName = focused ? "cog-outline" : "cog";
+        }else if (route.name === "EvidenciasTab") {
+          iconName = focused ? "folder-open-outline" : "folder";
         }
         // You can return any component that you like here!
         return <Ionicons name={iconName} size={size} color={color} />;
@@ -33,12 +37,19 @@ const BottomTabNavigator = () => {
         options={{ tabBarLabel: "Menú",tabBarStyle: { display: "none" }, headerShown: false }} />
       <Tab.Screen name="SolicitudesTab" component={SolicitudesStackNavigator}
         options={{ tabBarLabel: "Solicitudes", headerShown: false }} />
+         <Tab.Screen name="EvidenciasTab" component={EvidenciasStackNavigator}
+        options={{ tabBarLabel: "Evidencias", headerShown: false }} />
       <Tab.Screen name="ConfiguracionTab" component={ConfiguracionStackNavigator}
         options={{ tabBarLabel: "Configuracion", headerShown: false }} />
       <Tab.Screen name="NuevaSolicitudTab" component={NuevaSolicitudStackNavigator}
         options={{ tabBarStyle: { display: "none" }, headerShown: false, tabBarButton: () => null }} />
       <Tab.Screen name="EditSolicitudTab" component={EditSolicitudStackNavigator}
         options={{ tabBarStyle: { display: "none" }, headerShown: false, tabBarButton: () => null }} />
+        <Tab.Screen name="NuevaEvidenciaTab" component={NuevaEvidenciaStackNavigator}
+        options={{ tabBarStyle: { display: "none" }, headerShown: false, tabBarButton: () => null }} />
+      <Tab.Screen name="EditEvidenciaTab" component={EditEvidenciaStackNavigator}
+        options={{ tabBarStyle: { display: "none" }, headerShown: false, tabBarButton: () => null }} />
+       
     </Tab.Navigator>
   );
 };

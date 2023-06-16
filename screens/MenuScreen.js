@@ -13,7 +13,7 @@ export default function MenuScreen({ navigation }) {
           source={require('../assets/Back_arrow.png')}
           style={{
             width: 50, height: 50,
-            top: -200,
+            top: -150,
             left: -150
           }}
         />
@@ -22,15 +22,15 @@ export default function MenuScreen({ navigation }) {
       <Text style={{
         fontFamily: 'Montserrat',
         fontSize: 20,
-        top: -200,
-        left: -20
+        top: -180,
+        left: 0
       }}>Menú</Text>
       <Text style={{
         fontFamily: 'Montserrat',
         fontSize: 20,
-        top: -190,
-        left: -20
-      }}>Bienvenido: Jesús Gil</Text>
+        top: -150,
+        left: 0
+      }}>Bienvenido</Text>
 
       
       <View style={{ flexDirection: 'row', top: -100 }}>
@@ -59,7 +59,34 @@ export default function MenuScreen({ navigation }) {
           titleStyle={{ marginHorizontal: 10 }}
         />
         <Button
-          buttonStyle={{ backgroundColor: '#04764B', width: 180, paddingVertical: 30 }}
+          buttonStyle={{ backgroundColor: '#04764B', width: 180, paddingVertical: 30, top: 0 }}
+          containerStyle={{ margin: 5 }}
+          disabledStyle={{
+            borderWidth: 2,
+            borderColor: "#00F"
+          }}
+          disabledTitleStyle={{ color: "#00F" }}
+          linearGradientProps={null}
+          iconContainerStyle={{ background: "#000" }}
+          iconPosition="bottom"
+          icon={
+            <Image
+              source={require('../assets/folder_120px.png')}
+              style={{ width: 80, height: 80 }}
+            />
+          }
+          loadingProps={{ animating: true }}
+          loadingStyle={{}}
+          onPress={() => navigation.navigate("EvidenciasTab")}
+          title="Evidencias"
+          titleProps={{}}
+          titleStyle={{ marginHorizontal: 10 }}
+        />
+        
+      </View>
+      <View style={{ flexDirection: 'row', top: -100, left:-95 }}>
+      <Button
+          buttonStyle={{ backgroundColor: '#0080FF', width: 180, paddingVertical: 30 }}
           containerStyle={{ margin: 5 }}
           disabledStyle={{
             borderWidth: 2,

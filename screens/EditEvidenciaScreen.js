@@ -9,30 +9,27 @@ export default function NuevaEvidenciaScreen({ navigation }) {
     nombre: "",
     tipoEvidencia: "",
     cantEntregada: 0,
-    estatus: "E",
+    estatus: "",
   });
-  const [checked, setChecked] = useState('Digital');
-  const changeTipo = (value) => {
-    setEvidencia({ ...evidencia, tipoEvidencia: value });
-  };
+  const [checked, setChecked] = React.useState('Digital');
+
   const saveData = () => {
     var myHeaders = new Headers();
-    console.log(checked)
+
     myHeaders.append("Content-Type", "application/json");
     fetch("http://192.168.0.176:3000/evidencias", {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify({
         nombre: evidencia.nombre,
-        tipoEvidencia: evidencia.tipoEvidencia,
+        tipoEvidencia: checked.toString(),
         cantEntregada: parseInt(evidencia.cantEntregada),
-        estatus: evidencia.estatus,
+        estatus: "E",
       }),
     })
       .then((response) => response.json())
       .then((result) => {
         console.log("Result");
-        console.log(evidencia)
         navigation.navigate( "EvidenciasTab");
         console.log(result);
       })
@@ -45,7 +42,7 @@ export default function NuevaEvidenciaScreen({ navigation }) {
     setEvidencia({ ...evidencia, nombre: value });
   };
   const onChangeCantEntregada = (value) => {
-    setEvidencia({ ...evidencia, cantEntregada: parseInt(value) });
+    setEvidencia({ ...evidencia, cantEntregada: value });
   };
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -56,7 +53,7 @@ export default function NuevaEvidenciaScreen({ navigation }) {
           source={require('../assets/Back_arrow.png')}
           style={{
             width: 50, height: 50,
-            top: -220,
+            top: -45,
             left: -150
           }}
         />
@@ -64,10 +61,10 @@ export default function NuevaEvidenciaScreen({ navigation }) {
       <Text style={{
         fontFamily: 'Montserrat',
         fontSize: 20,
-        top: -220
+        top: -70
       }}>Nueva evidencia</Text>
 
-      <View style={{ top: -100 }}>
+      <View style={{ top: -15 }}>
         <Text style={{
           fontFamily: 'Montserrat',
           fontSize: 18
@@ -84,7 +81,7 @@ export default function NuevaEvidenciaScreen({ navigation }) {
         </View>
 
       </View>
-      <View style={{ top: -70 }}>
+      <View style={{ top: -10 }}>
         <Text style={{
           fontFamily: 'Montserrat',
           fontSize: 18
@@ -109,8 +106,8 @@ export default function NuevaEvidenciaScreen({ navigation }) {
         <View style={{ flexDirection: 'row', left: -30 }}>
           <RadioButton
             value="Digital"
-            status={evidencia.tipoEvidencia === 'Digital' ? 'checked' : 'unchecked'}
-            onPress={() => changeTipo("Digital")}
+            status={checked === 'Digital' ? 'checked' : 'unchecked'}
+            onPress={() => setChecked("Digital")}
           />
           <Text style={{
             top: 5, fontFamily: 'Montserrat',
@@ -120,8 +117,8 @@ export default function NuevaEvidenciaScreen({ navigation }) {
         <View style={{ flexDirection: 'row', left: -30 }}>
           <RadioButton
             value="Fisico"
-            status={evidencia.tipoEvidencia === 'Fisico' ? 'checked' : 'unchecked'}
-            onPress={() => changeTipo("Fisico")}
+            status={checked === 'Fisico' ? 'checked' : 'unchecked'}
+            onPress={() => setChecked("Fisico")}
           />
           <Text style={{
             top: 5, fontFamily: 'Montserrat',

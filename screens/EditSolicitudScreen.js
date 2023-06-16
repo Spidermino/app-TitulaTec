@@ -68,7 +68,7 @@ export default function EditSolicitudScreen({ route, navigation }) {
         //   "Bearer 62ddfa7559d5fdec64517e3ab70ee4fd60b2244e71fa042a44f914f8fa688263"
         // );
         myHeaders.append("Content-Type", "application/json");
-        fetch("http://192.168.1.231:3000/solicitudes/" + solicitud.idSol, {
+        fetch("http://192.168.0.176:3000/solicitudes/" + solicitud.idSol, {
             method: "PATCH",
             headers: myHeaders,
             body: JSON.stringify({
