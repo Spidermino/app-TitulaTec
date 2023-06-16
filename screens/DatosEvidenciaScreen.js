@@ -22,7 +22,7 @@ export default function DatosEvidenciaScreen({ route, navigation }) {
     // );
 
     myHeaders.append("Content-Type", "application/json");
-    fetch("http://192.168.1.231:3000/evidencias/" + evidencia.idEvidencia, {
+    fetch("http://192.168.0.176:3000/evidencias/" + evidencia.idEvidencia, {
       method: "DELETE",
       headers: myHeaders,
       body: JSON.stringify({

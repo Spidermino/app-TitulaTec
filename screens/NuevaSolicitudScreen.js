@@ -39,7 +39,7 @@ export default function NuevaSolicitudScreen({ navigation }) {
     var myHeaders = new Headers();
     console.log(solicitud);
     myHeaders.append("Content-Type", "application/json");
-    fetch("http://192.168.1.231:3000/solicitudes", {
+    fetch("http://192.168.0.176:3000/solicitudes", {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify({

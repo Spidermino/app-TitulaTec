@@ -2,17 +2,17 @@ import React , {useState} from "react";
 import { View, Text, Alert, TextInput, StyleSheet, Image } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Button, Input } from "@rneui/base";
-import { useFonts } from 'expo-font';
+
 
 export default function LoginScreen({ navigation }) {
- 
-  y[nom, setNombre] = useState('');
+  
+  const [nom, setNombre] = useState('');
   const [password, setPassword] = useState('');
   const [usuario, setUsuario] = useState();
 
   const getUsuarioData = async () => {
     try {
-      const response = await fetch("http://192.168.1.231:3000/usuarios");
+      const response = await fetch("http://192.168.0.176:3000/usuarios");
       const data = await response.json();
       console.log(data);
       setUsuario(data);

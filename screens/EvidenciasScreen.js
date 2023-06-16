@@ -12,7 +12,7 @@ export default function EvidenciasScreen({ navigation }) {
   const getEvidenciaData = async () => {
     try {
       //   const headers = { "Content-Type": "application/json" };
-      let response = await fetch("http://192.168.1.231:3000/evidencias");
+      let response = await fetch("http://192.168.0.176:3000/evidencias");
       let data = await response.json();
       setEvidencia(data);
     } catch (error) {

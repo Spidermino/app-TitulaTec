@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import { RadioButton } from 'react-native-paper';
 import { FAB } from "@rneui/base";
 
@@ -14,58 +13,13 @@ export default function NuevoUsuarioScreen({ navigation }) {
     domicilio: "",
     password: "",
   });
-  const [alumno, setAlumno] = useState({
-    noControl: 0,
-    anioEgreso: 0,
-    idUsuario: 0
-  });
-  const filter = {
-    fields: { idUsuario: true },
-    order: 'idUsuario DESC',
-    limit: 1,
-  };
-  
-  const getIdUserData = async () => {
-    try {
-      //   const headers = { "Content-Type": "application/json" };
-      let response = await fetch('http://192.168.1.231:3000/usuarios?filter='+JSON.stringify(filter));
-      let data = await response.json();
-      console.log("data:");
-      console.log(data)
-      return data;
-        } catch (error) {
-      console.error(error);
-    }
-  };
-  const saveAlumno = async () => {
-    var myHeaders = new Headers();
-    const idUser= await getIdUserData();
-    const id = parseInt(idUser[0].idUsuario); 
-    myHeaders.append("Content-Type", "application/json");
-    fetch("http://192.168.1.231:3000/alumnos", {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify({
-        noControl: parseInt(alumno.noControl),
-        anioEgreso: parseInt(alumno.anioEgreso),
-        idUsuario: id
-      }),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Result");
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log("Error");
-        console.log(error);
-      });
-  };
+ 
+ 
 
   const saveData = () => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    fetch("http://192.168.1.231:3000/usuarios", {
+    fetch("http://192.168.0.176:3000/usuarios", {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify({
@@ -80,9 +34,6 @@ export default function NuevoUsuarioScreen({ navigation }) {
       .then((response) => response.json())
       .then((result) => {
         console.log("Result");
-        console.log("usuario")
-        console.log(usuario)
-        saveAlumno();
         navigation.navigate("UsuariosTab");
         console.log(result);
       })
@@ -109,12 +60,7 @@ export default function NuevoUsuarioScreen({ navigation }) {
   const onChangePassword = (value) => {
     setUsuario({ ...usuario, password: value });
   };
-  const onChangeNoControl = (value) => {
-    setAlumno({ ...alumno, noControl: value });
-  };
-  const onChangeAnioEgreso = (value) => {
-    setAlumno({ ...alumno, anioEgreso: value });
-  };
+
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <TouchableOpacity onPress={onPress = () => {
@@ -227,41 +173,6 @@ export default function NuevoUsuarioScreen({ navigation }) {
           }}
             onChangeText={(value) => onChangeDomicilio(value)}
 
-          />
-        </View>
-      </View>
-      <View>
-        <Text style={{
-          fontFamily: 'Montserrat',
-          fontSize: 18
-        }}>Numero de control: </Text>
-        <View>
-          <TextInput style={{
-            borderBottomWidth: 1.0,
-            borderTopWidth: 1.0, borderLeftWidth: 1.0,
-            borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
-            fontSize: 15, width: 300, height: 35
-          }}
-          keyboardType="numeric"
-            onChangeText={(value) => onChangeNoControl(value)}
-
-          />
-        </View>
-      </View>
-      <View>
-        <Text style={{
-          fontFamily: 'Montserrat',
-          fontSize: 18
-        }}>Año de egreso: </Text>
-        <View>
-          <TextInput style={{
-            borderBottomWidth: 1.0,
-            borderTopWidth: 1.0, borderLeftWidth: 1.0,
-            borderRightWidth: 1.0, borderColor: 'gray', fontFamily: 'Montserrat',
-            fontSize: 15, width: 300, height: 35
-          }}
-            keyboardType="numeric"
-            onChangeText={(value) => onChangeAnioEgreso(value)}
           />
         </View>
       </View>

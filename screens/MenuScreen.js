@@ -4,6 +4,7 @@ import { Button } from "@rneui/base";
 
 
 export default function MenuScreen({ navigation }) {
+ 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <TouchableOpacity onPress={onPress = () => {

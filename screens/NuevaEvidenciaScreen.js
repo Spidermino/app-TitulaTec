@@ -19,7 +19,7 @@ export default function NuevaEvidenciaScreen({ navigation }) {
     var myHeaders = new Headers();
     console.log(checked)
     myHeaders.append("Content-Type", "application/json");
-    fetch("http://192.168.1.231:3000/evidencias", {
+    fetch("http://192.168.0.176:3000/evidencias", {
       method: "POST",
       headers: myHeaders,
       body: JSON.stringify({
